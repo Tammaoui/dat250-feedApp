@@ -7,7 +7,7 @@ import services.PollChoiceDao;
 
 public class Main {
 
-    static JpaDao<PollChoice, Long> pollDao = new PollChoiceDao();
+    static PollChoiceDao pollDao = new PollChoiceDao();
 
     public static void main(String[] args) {
 
