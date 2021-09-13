@@ -1,18 +1,17 @@
 package feedapp;
 
-import java.util.List;
+import entities.PollChoice;
+import services.JpaDao;
+import services.PollChoiceDao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 public class Main {
-    private static final String PERSISTENCE_UNIT_NAME = "polls";
-    private static EntityManagerFactory factory;
+
+    static JpaDao<PollChoice, Long> pollDao = new PollChoiceDao();
 
     public static void main(String[] args) {
-        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        EntityManager em = factory.createEntityManager();
+
+        PollChoice choice = new PollChoice();
+        pollDao.persist(choice);
     }
 }
