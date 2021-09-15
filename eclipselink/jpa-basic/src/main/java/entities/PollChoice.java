@@ -10,6 +10,9 @@ public class PollChoice {
 
     private String choiceText;
 
+    @ManyToOne
+    private Poll poll;
+
     private int votes;
 
     public Long getId() {
@@ -39,5 +42,13 @@ public class PollChoice {
                 ", choiceText='" + choiceText + '\'' +
                 ", votes=" + votes +
                 '}';
+    }
+
+    public Poll getPoll() {
+        return poll;
+    }
+
+    public void setPoll(Poll poll) {
+        this.poll = poll;
     }
 }

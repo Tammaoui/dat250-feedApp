@@ -1,10 +1,8 @@
-package services;
+package service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 
 public abstract class JpaDao<E, K> implements Dao<E, K> {
 
@@ -48,4 +46,11 @@ public abstract class JpaDao<E, K> implements Dao<E, K> {
         return result;
     }
 
+    public ArrayList<E> getAll() {
+        entityManager.getTransaction().begin();
+        ArrayList<E> results = (ArrayList<E>) entityManager
+                .createQuery("Select e from E e", entityClass)
+                .getResultList();
+        return results;
+    }
 }

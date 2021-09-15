@@ -1,4 +1,6 @@
-package services;
+package service;
+
+import java.util.ArrayList;
 
 public interface Dao<E, K> {
 
@@ -7,6 +9,8 @@ public interface Dao<E, K> {
     void remove(E entity);
 
     E find(K id);
+
+    ArrayList<E> getAll();
 }
 
 
