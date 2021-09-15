@@ -8,6 +8,7 @@ import service.PollChoiceDao;
 import service.PollDao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main {
@@ -26,6 +27,7 @@ public class Main {
         account.setEmail("Test");
         accountDao.persist(account);
 
+
         // Create test poll
         Poll poll = new Poll();
         poll.setTitle("Test pool");
@@ -41,9 +43,14 @@ public class Main {
             pollChoiceDao.persist(choice);
         }
 
-        ArrayList<PollChoice> choices = pollChoiceDao.getAll();
+        List<PollChoice> choices = pollChoiceDao.getAll();
         for (PollChoice choice: choices) {
             System.out.println(choice);
+        }
+
+        List<Account> accounts = accountDao.getAll();
+        for(Account acc: accounts) {
+            System.out.println(acc);
         }
     }
 }

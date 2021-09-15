@@ -1,6 +1,6 @@
 package service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Dao<E, K> {
 
@@ -10,7 +10,7 @@ public interface Dao<E, K> {
 
     E find(K id);
 
-    ArrayList<E> getAll();
+    List<E> getAll();
 }
 
 

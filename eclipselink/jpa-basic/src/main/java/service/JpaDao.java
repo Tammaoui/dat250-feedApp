@@ -2,7 +2,7 @@ package service;
 
 import javax.persistence.*;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class JpaDao<E, K> implements Dao<E, K> {
 
@@ -46,10 +46,10 @@ public abstract class JpaDao<E, K> implements Dao<E, K> {
         return result;
     }
 
-    public ArrayList<E> getAll() {
+    public List<E> getAll() {
         entityManager.getTransaction().begin();
-        ArrayList<E> results = (ArrayList<E>) entityManager
-                .createQuery("Select e from E e", entityClass)
+        List<E> results = entityManager
+                .createQuery(String.format("Select e from %s e", entityClass.getSimpleName()))
                 .getResultList();
         return results;
     }
