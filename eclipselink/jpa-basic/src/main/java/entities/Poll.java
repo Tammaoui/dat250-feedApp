@@ -18,7 +18,8 @@ public class Poll {
     private boolean isPublic;
 
     @ManyToOne
-    private User createdBy;
+    @JoinColumn(name = "account_id")
+    private Account createdBy;
 
     private Date lastEdited;
 
@@ -52,11 +53,11 @@ public class Poll {
         isPublic = aPublic;
     }
 
-    public User getCreatedBy() {
+    public Account getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(Account createdBy) {
         this.createdBy = createdBy;
     }
 

@@ -3,9 +3,9 @@ package entities;
 import javax.persistence.*;
 
 @Entity
-public class User {
+public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String email;
@@ -19,7 +19,6 @@ public class User {
     public Long getId() {
         return id;
     }
-
 
     public String getEmail() {
         return email;

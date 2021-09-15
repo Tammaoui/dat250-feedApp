@@ -11,7 +11,6 @@ public class Main {
     public static void main(String[] args) {
         PollChoice choice = new PollChoice();
         choice.setChoiceText("Hvilken hund har du lyst på?");
-
         pollChoiceDao.persist(choice);
 
         System.out.println(choice.getId());
