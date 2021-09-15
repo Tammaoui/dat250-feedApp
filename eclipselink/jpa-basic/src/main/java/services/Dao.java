@@ -6,7 +6,7 @@ public interface Dao<E, K> {
 
     void remove(E entity);
 
-    E findById(K id);
+    E find(K id);
 }
 
 

@@ -8,19 +8,12 @@ public class PollChoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Poll poll;
-
     private String choiceText;
 
     private int votes;
 
     public Long getId() {
         return id;
-    }
-
-    public Poll getPoll() {
-        return poll;
     }
 
     public String getChoiceText() {
@@ -37,5 +30,14 @@ public class PollChoice {
 
     public void setVotes(int votes) {
         this.votes = votes;
+    }
+
+    @Override
+    public String toString() {
+        return "PollChoice{" +
+                "id=" + id +
+                ", choiceText='" + choiceText + '\'' +
+                ", votes=" + votes +
+                '}';
     }
 }
