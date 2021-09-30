@@ -1,6 +1,6 @@
-package service;
+package feedapp.service;
 
-import entities.Poll;
+import feedapp.entities.Poll;
 
 public class PollDao extends JpaDao<Poll, Long> {
 

@@ -1,4 +1,4 @@
-package service;
+package feedapp.service;
 
 import javax.persistence.*;
 import java.lang.reflect.ParameterizedType;

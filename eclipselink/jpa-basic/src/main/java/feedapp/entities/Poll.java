@@ -1,4 +1,4 @@
-package entities;
+package feedapp.entities;
 
 import javax.persistence.*;
 

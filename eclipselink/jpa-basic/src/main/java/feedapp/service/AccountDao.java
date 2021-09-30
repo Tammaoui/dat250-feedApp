@@ -1,6 +1,6 @@
-package service;
+package feedapp.service;
 
-import entities.Account;
+import feedapp.entities.Account;
 
 public class AccountDao extends JpaDao<Account, Long> {
 

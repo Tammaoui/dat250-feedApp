@@ -1,4 +1,4 @@
-package service;
+package feedapp.service;
 
 import java.util.List;
 
