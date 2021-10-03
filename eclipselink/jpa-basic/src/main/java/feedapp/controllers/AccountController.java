@@ -23,7 +23,7 @@ public class AccountController {
     @GetMapping("/accounts")
     public List<Account> all(HttpServletResponse response) {
         List<Account> accounts = accountDao.getAll();
-        if(accounts.size() == 0)
+        if(accounts.isEmpty())
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         return accounts;
     }
@@ -33,7 +33,7 @@ public class AccountController {
         Account account = accountDao.find(id);
         if(account == null)
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-        return accountDao.find(id);
+        return account;
     }
 
     @PostMapping("/accounts")
