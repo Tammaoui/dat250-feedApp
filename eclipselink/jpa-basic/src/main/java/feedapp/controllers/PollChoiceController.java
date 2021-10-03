@@ -22,7 +22,7 @@ public class PollChoiceController {
         return pollChoices;
     }
 
-    @GetMapping("/pollChoices{id}")
+    @GetMapping("/pollChoices/{id}")
     public PollChoice get(@PathVariable Long id, HttpServletResponse response) {
         PollChoice pollChoice = pollChoiceDao.find(id);
         if(pollChoice == null)
