@@ -1,7 +1,5 @@
 package feedapp.controllers;
 
-import feedapp.entities.Account;
-import feedapp.entities.Poll;
 import feedapp.entities.PollChoice;
 import feedapp.service.PollChoiceDao;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,5 @@
 package feedapp.controllers;
 
-import feedapp.entities.Account;
 import feedapp.entities.Poll;
 import feedapp.service.PollDao;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,7 @@ public class PollController {
     @GetMapping("/polls")
     public List<Poll> all(HttpServletResponse response) {
         List<Poll> polls = pollsDao.getAll();
-        if(polls.size() == 0)
+        if(polls.isEmpty())
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         return polls;
     }
@@ -26,7 +25,7 @@ public class PollController {
         Poll poll = pollsDao.find(id);
         if(poll == null)
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-        return pollsDao.find(id);
+        return poll;
     }
 
     @PostMapping("/polls")
