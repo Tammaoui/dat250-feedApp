@@ -51,6 +51,13 @@ public abstract class JpaDao<E, K> implements Dao<E, K> {
         List<E> results = entityManager
                 .createQuery(String.format("Select e from %s e", entityClass.getSimpleName()))
                 .getResultList();
+        entityManager.getTransaction().commit();
         return results;
+    }
+
+    public void update(E entity) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(entity);
+        entityManager.getTransaction().commit();
     }
 }
