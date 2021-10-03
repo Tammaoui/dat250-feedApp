@@ -73,14 +73,15 @@ public class AccountController {
     public String update(@PathVariable Long id, @RequestBody Account data, HttpServletResponse response) {
         try {
             Account currentUser = accountDao.find(id);
-
-            currentUser.setFirstname(data.getFirstname());
-
             if(currentUser == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return "No account with id: " + id + " was found";
             }
-            accountDao.update(data);
+            currentUser.setFirstname(data.getFirstname());
+            currentUser.setEmail(data.getEmail());
+            currentUser.setLastname(data.getLastname());
+            currentUser.setPassword(data.getPassword());
+            accountDao.persist(currentUser);
             return "User updated successfully.";
 
         }
