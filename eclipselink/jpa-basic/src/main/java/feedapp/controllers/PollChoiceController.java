@@ -1,7 +1,10 @@
 package feedapp.controllers;
 
+import feedapp.entities.Poll;
 import feedapp.entities.PollChoice;
+import feedapp.entities.PollChoiceDto;
 import feedapp.service.PollChoiceDao;
+import feedapp.service.PollDao;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +14,7 @@ import java.util.List;
 public class PollChoiceController {
 
     static PollChoiceDao pollChoiceDao = new PollChoiceDao();
+    static PollDao pollsDao = new PollDao();
 
     @GetMapping("/pollChoices")
     public List<PollChoice> all(HttpServletResponse response) {
@@ -60,16 +64,20 @@ public class PollChoiceController {
     }
 
     @PutMapping("/pollChoices/{id}")
-    public String update(@PathVariable Long id, @RequestBody PollChoice data, HttpServletResponse response) {
+    public String update(@PathVariable Long id, @RequestBody PollChoiceDto data, HttpServletResponse response) {
         try {
             PollChoice pollChoice = pollChoiceDao.find(id);
             if(pollChoice == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return "No poll-choice with id: " + id + " was found";
             }
-            pollChoice.setPoll(data.getPoll());
-            pollChoice.setChoiceText(data.getChoiceText());
-            pollChoice.setVotes(data.getVotes());
+            Poll poll = pollsDao.find(data.pollId);
+            if (poll == null) {
+                return "Could not find poll with poll-id:" + data.pollId;
+            }
+            pollChoice.setPoll(poll);
+            pollChoice.setChoiceText(data.choiceText);
+            pollChoice.setVotes(data.votes);
             pollChoiceDao.persist(pollChoice);
             return "Poll-choice updated successfully.";
 
