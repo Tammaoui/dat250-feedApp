@@ -63,7 +63,7 @@ public class AccountController {
 
         } catch (Exception e) {
             System.out.println("Something went wrong trying to delete user: " + id);
-            System.out.println(e);
+            e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return "Something went wrong";
         }
@@ -87,7 +87,7 @@ public class AccountController {
         }
         catch (Exception e) {
             System.out.println("Something went wrong trying to update user: " + id);
-            System.out.println(e);
+            e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return "Something went wrong";
         }

@@ -71,7 +71,7 @@ public class PollController {
 
         } catch (Exception e) {
             System.out.println("Something went wrong trying to delete poll: " + id);
-            System.out.println(e);
+            e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return "Something went wrong";
         }
@@ -99,7 +99,7 @@ public class PollController {
         }
         catch (Exception e) {
             System.out.println("Something went wrong trying to update poll: " + id);
-            System.out.println(e);
+            e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return "Something went wrong";
         }

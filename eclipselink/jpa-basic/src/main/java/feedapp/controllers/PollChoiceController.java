@@ -57,7 +57,7 @@ public class PollChoiceController {
 
         } catch (Exception e) {
             System.out.println("Something went wrong trying to poll-choice: " + id);
-            System.out.println(e);
+            e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return "Something went wrong";
         }
@@ -84,7 +84,7 @@ public class PollChoiceController {
         }
         catch (Exception e) {
             System.out.println("Something went wrong trying to update poll-choice: " + id);
-            System.out.println(e);
+            e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return "Something went wrong";
         }
