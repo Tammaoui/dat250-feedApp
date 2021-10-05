@@ -1,5 +1,7 @@
 package feedapp.entities;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,12 +10,16 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String email;
 
+    @NonNull
     private String firstname;
 
+    @NonNull
     private String lastname;
 
+    @NonNull
     private String password;
 
     public Long getId() {
