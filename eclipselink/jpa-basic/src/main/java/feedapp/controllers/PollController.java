@@ -8,6 +8,7 @@ import feedapp.service.PollDao;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -77,18 +78,21 @@ public class PollController {
     }
 
     @PutMapping("/polls/{id}")
-    public String update(@PathVariable Long id, @RequestBody Poll data, HttpServletResponse response) {
+    public String update(@PathVariable Long id, @RequestBody PollDto data, HttpServletResponse response) {
         try {
             Poll currentPoll = pollsDao.find(id);
             if(currentPoll == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return "No poll with id: " + id + " was found";
             }
-            currentPoll.setCreatedAt(data.getCreatedAt());
-            currentPoll.setCreatedBy(data.getCreatedBy());
-            currentPoll.setPublic(data.isPublic());
-            currentPoll.setTitle(data.getTitle());
-            currentPoll.setLastEdited(data.getLastEdited());
+            Account createdBy = accountDao.find(data.createdBy);
+            if (createdBy == null) {
+                return "Could not find user with id: " + data.createdBy;
+            }
+            currentPoll.setCreatedBy(createdBy);
+            currentPoll.setPublic(data.isPublic);
+            currentPoll.setTitle(data.title);
+            currentPoll.setLastEdited(new Date(System.currentTimeMillis()));
             pollsDao.persist(currentPoll);
             return "Poll updated successfully.";
 
