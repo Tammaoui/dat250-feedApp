@@ -1,6 +1,9 @@
 package feedapp.controllers;
 
+import feedapp.entities.Account;
 import feedapp.entities.Poll;
+import feedapp.entities.PollDto;
+import feedapp.service.AccountDao;
 import feedapp.service.PollDao;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +14,7 @@ import java.util.List;
 public class PollController {
 
     static PollDao pollsDao = new PollDao();
+    static AccountDao accountDao = new AccountDao();
 
     @GetMapping("/polls")
     public List<Poll> all(HttpServletResponse response) {
@@ -29,9 +33,20 @@ public class PollController {
     }
 
     @PostMapping("/polls")
-    public String create(@RequestBody Poll data, HttpServletResponse response) {
+    public String create(@RequestBody PollDto data, HttpServletResponse response) {
         try {
-            pollsDao.persist(data);
+            Account createdBy = accountDao.find(data.createdBy);
+            if(createdBy == null) {
+                return "Could not find user with id: " + data.createdBy;
+            }
+
+            Poll newPoll = new Poll();
+            newPoll.setCreatedBy(createdBy);
+            newPoll.setTitle(data.title);
+            newPoll.setPublic(data.isPublic);
+            newPoll.setActive(data.active);
+            pollsDao.persist(newPoll);
+
         } catch (Exception e) {
             System.out.println("Failed creating poll entity. Got exception: " + e);
             response.setStatus(HttpServletResponse.SC_CONFLICT);
