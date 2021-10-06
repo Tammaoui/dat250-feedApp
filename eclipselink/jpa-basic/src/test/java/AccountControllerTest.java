@@ -26,11 +26,10 @@ public class AccountControllerTest {
     MockMvc mockMvc;
     @Autowired
     ObjectMapper mapper;
-
     @MockBean
-    AccountDao accountDao;
+    static AccountDao accountDao = new AccountDao();
 
-     Account ACCOUNT_1;
+    Account ACCOUNT_1 = new Account();
     {
         ACCOUNT_1.setEmail("USER_1@email.com");
         ACCOUNT_1.setFirstname("Firstname_1");
@@ -39,7 +38,7 @@ public class AccountControllerTest {
         accountDao.persist(ACCOUNT_1);
     }
 
-    Account ACCOUNT_2;
+    Account ACCOUNT_2 = new Account();
     {
         ACCOUNT_2.setEmail("USER_2@email.com");
         ACCOUNT_2.setFirstname("Firstname_2");
@@ -48,7 +47,7 @@ public class AccountControllerTest {
         accountDao.persist(ACCOUNT_2);
     }
 
-    Account ACCOUNT_3;
+    Account ACCOUNT_3 = new Account();
     {
         ACCOUNT_3.setEmail("USER_3@email.com");
         ACCOUNT_3.setFirstname("Firstname_3");
@@ -67,8 +66,18 @@ public class AccountControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].firstname", is("Firstname_1")))
-                .andExpect(jsonPath("$[1].firstname", is("Firstname_2")))
                 .andExpect(jsonPath("$[2].firstname", is("Firstname_3")));
+    }
+
+    @Test
+    public void getUserByID() throws Exception {
+        Mockito.when(accountDao.find(ACCOUNT_1.getId())).thenReturn(ACCOUNT_1);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get(String.format("/accounts/%d", ACCOUNT_1.getId()))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$[0].firstname", is("Firstname_1")));
     }
 }
