@@ -33,9 +33,17 @@ public class PollChoiceController {
     }
 
     @PostMapping("/pollChoices")
-    public String create(@RequestBody PollChoice data, HttpServletResponse response) {
+    public String create(@RequestBody PollChoiceDto data, HttpServletResponse response) {
         try {
-            pollChoiceDao.persist(data);
+            Poll poll = pollsDao.find(data.pollId);
+            if(poll == null) {
+                return "Could not find poll with id: " + data.pollId;
+            }
+            PollChoice newPollChoice = new PollChoice();
+            newPollChoice.setPoll(poll);
+            newPollChoice.setChoiceText(data.choiceText);
+            newPollChoice.setVotes(data.votes);
+            pollChoiceDao.persist(newPollChoice);
         } catch (Exception e) {
             System.out.println("Failed creating poll-choice entity. Got exception: " + e);
             response.setStatus(HttpServletResponse.SC_CONFLICT);
