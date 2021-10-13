@@ -54,10 +54,4 @@ public abstract class JpaDao<E, K> implements Dao<E, K> {
         entityManager.getTransaction().commit();
         return results;
     }
-
-    public void update(E entity) {
-        entityManager.getTransaction().begin();
-        entityManager.merge(entity);
-        entityManager.getTransaction().commit();
-    }
 }
